@@ -6,34 +6,31 @@ description: Look up ShorList, an open catalogue (v0.2.0, 2035 rows) of the form
 # ShorList
 
 The catalogue is bundled in `data/` next to this file: `catalogue.json` (version, the
-release's catalogue sha256, DOI, licence) and `rows-*.jsonl` (one row per line, JSON).
-Query it with the script, which uses only the Python standard library and makes no network
-request:
+release's catalogue sha256, DOI, licence) and `rows-01.json` … `rows-13.json`, each a JSON
+array with one row per line. The plugin ships no script: read the files with your own tools.
+In Claude Code, search them with Grep (a row is one line, so a match is a whole row) or load
+them in a short program; in claude.ai chat, load them with code execution from the skill
+folder. Make no network request to answer from the catalogue.
 
-```
-python3 ${CLAUDE_SKILL_DIR}/scripts/find.py --stats
-```
+## Row fields
 
-In claude.ai chat the skill folder is copied into the code-execution sandbox; run
-`python3 scripts/find.py ...` from the skill folder there.
-
-## Queries
-
-| question | command |
+| field | meaning |
 |---|---|
-| counts by axis, family, form kind | `find.py --stats` (add any filter) |
-| one row, in full, with its sources | `find.py --id SL-0001 --full` |
-| forms of a family | `find.py --family ML-KEM` (exact family name; `--stats` lists them) |
-| forms for a language or product | `find.py --product nginx` (substring) |
-| one kind of form | `find.py --kind config_value` (`api_call`, `api_string`, `config_key`, `config_value`, `registry_id`, `oid`, `curve_name`, `cli`, `file_format`) |
-| one axis | `find.py --axis quantum` (`weak`, `defect`) |
-| decoys only / positives only | `--decoys` / `--positives` |
-| misuse rows of a CWE | `find.py --cwe CWE-327` |
-| literal contains text | `find.py --text getInstance` |
-| which catalogue literals occur verbatim in a file | `find.py --in path/to/file` |
+| `id` | `SL-nnnn` |
+| `axis` | `quantum`, `weak` or `defect` |
+| `negative` | `true` for a decoy |
+| `family`, `parameter_set`, `role` | what the form uses |
+| `form_kind` | `api_call`, `api_string`, `config_key`, `config_value`, `registry_id`, `oid`, `curve_name`, `cli`, `file_format` |
+| `language_or_product` | where the form appears (substring match is the useful one) |
+| `literal` | the exact text of the form |
+| `context_filename`, `context_template` | the minimal file it is planted in |
+| `expected` | what a scanner should report (for a decoy: what it would wrongly report) |
+| `source` | primary source, with section and quote |
+| `weakness`, `defect.cwe` | the standard or CWE for the weak and defect axes |
 
-Filters combine. Output is one row per line (id, axis, pos/DECOY, family, form kind,
-product, literal); `--full` prints whole rows. The default limit is 50; `--limit 0` prints all.
+Typical questions: counts by axis or family; one row in full with its source; the forms of
+a family for a product; the decoys of a family; the misuse rows of a CWE; which catalogue
+literals occur verbatim in a given file (a plain string match, see the limits below).
 
 ## How to answer
 
@@ -54,7 +51,7 @@ product, literal); `--full` prints whole rows. The default limit is 50; `--limit
 
 Say these plainly when they matter; do not soften them.
 
-- **It is not a scanner.** `--in` is a verbatim string match of catalogue literals. A
+- **It is not a scanner.** Matching literals against a file is a verbatim string match of catalogue literals. A
   match is not a finding (decoys match too), and no match does not mean the file has no
   cryptography. For an inventory of a real code base, use a scanner.
 - **It is not recall.** The catalogue is not complete and does not claim to be. A

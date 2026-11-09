@@ -10,8 +10,9 @@ it) measure false alarms. This plugin bundles **ShorList v0.2.0** (2035 rows, DO
 ## Where it works
 
 The plugin contains one skill and nothing else: no hooks, no MCP server, no commands, no
-agents. Skills load in **claude.ai chat**, **Cowork** and **Claude Code**. In chat the
-skill's script runs in the code-execution sandbox, so code execution has to be on.
+agents, no scripts. Every file in it is Markdown, JSON or the PNG icon. Skills load in
+**claude.ai chat**, **Cowork** and **Claude Code**. In chat Claude reads the data files with
+code execution, so code execution has to be on.
 
 ## Install
 
@@ -68,8 +69,8 @@ section "Scope of v0.2".
 
 ## What it sends
 
-Nothing. The skill reads the bundled data files with a Python script that uses only the
-standard library and makes no network request. It stores nothing. If you ask how to score
+Nothing. Claude reads the bundled data files; the skill makes no network request and
+stores nothing. If you ask how to score
 a scanner, Claude proposes cloning the public ShorList repository from GitHub; that
 happens only in Claude Code, only after you agree, and is an ordinary command you see
 before it runs.
@@ -77,11 +78,12 @@ before it runs.
 ## How the data was made
 
 The data under the skill's data folder is built from the v0.2.0 tag of the catalogue
-repository by the build script in the tools folder. It differs from the release in three
+repository by a build script kept outside the plugin, since the plugin ships no code. It
+differs from the release in three
 ways, and in nothing else:
 
-1. Rows are stored as JSON Lines, about 150 rows per file, instead of one YAML file per
-   row, to stay within the plugin directory's file limits.
+1. Rows are stored as JSON arrays, one row per line and about 150 rows per file, instead
+   of one YAML file per row, to stay within the plugin directory's file limits.
 2. Each row carries `axis`, computed as the generator computes it.
 3. Ten PEM rows (SL-3596 to SL-3604 and SL-3616) carry real, throwaway test keys in the
    release, published on purpose. In this copy their minimal file is removed and a note
