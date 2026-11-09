@@ -79,9 +79,7 @@ before it runs.
 ## How the data was made
 
 The data under the skill's data folder is built from the v0.2.0 tag of the catalogue
-repository by a build script kept outside the plugin, since the plugin ships no code. It
-differs from the release in three
-ways, and in nothing else:
+repository by a build script kept outside the plugin, since the plugin ships no code. It differs from the release in four ways, and in nothing else:
 
 1. Rows are stored as JSON arrays, one row per line and about 150 rows per file, instead
    of one YAML file per row, to stay within the plugin directory's file limits.
@@ -89,6 +87,10 @@ ways, and in nothing else:
 3. Ten PEM rows (SL-3596 to SL-3604 and SL-3616) carry real, throwaway test keys in the
    release, published on purpose. In this copy their minimal file is removed and a note
    links the full row; the literal (the PEM label) and the expected result are unchanged.
+4. The 24 hard-coded-key rows (CWE-321) carry made-up keys in the release. In this copy their
+   minimal file is removed and long key bytes in the literal are replaced by
+   `<KEY-BYTES-REMOVED>`, so that a secret scanner does not read them as real keys; a note
+   links the full row. The expected result is unchanged.
 
 The catalogue sha256 recorded with the data is the release's own (over its YAML files, as
 the generator computes it), so a result made with the generator on v0.2.0 is on the same

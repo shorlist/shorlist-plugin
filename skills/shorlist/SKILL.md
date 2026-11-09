@@ -46,6 +46,10 @@ literals occur verbatim in a given file (a plain string match, see the limits be
   `weakness`), `defect` (misuse scored on the CWE in `defect.cwe`).
 - Ten PEM rows (SL-3596 to SL-3604, SL-3616) have no `context_template` in this copy: it
   held published throwaway key material. Their `plugin_note` links the full row.
+- The 24 hard-coded-key rows (CWE-321) have no `context_template` in this copy, and long
+  key bytes in their literal read `<KEY-BYTES-REMOVED>`, so that a secret scanner does not take
+  the made-up keys for real ones. Their `plugin_note` links the full row; quote that row when
+  the exact literal matters.
 
 ## What this does not do
 
