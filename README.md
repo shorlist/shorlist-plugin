@@ -20,7 +20,8 @@ In claude.ai or Cowork: **Customize > Plugins**, find ShorList in the directory.
 Code:
 
 ```
-/plugin install shorlist --marketplace shorlist/shorlist-plugin
+/plugin marketplace add shorlist/shorlist-plugin
+/plugin install shorlist@shorlist
 ```
 
 ## Use it
