@@ -106,7 +106,7 @@ Elkan Electronic has checked those numbers yet.
 
 ## Licences
 
-The catalogue data is under [CC BY 4.0](LICENSE-DATA): credit "ShorList v0.2.0, DOI
+The catalogue data is under [CC BY 4.0](LICENSE-DATA.md): credit "ShorList v0.2.0, DOI
 10.5281/zenodo.23974515". The script and the build tool are under
 [Apache-2.0](LICENSE).
 
