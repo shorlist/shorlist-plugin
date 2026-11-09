@@ -1,0 +1,15 @@
+{
+  "name": "shorlist",
+  "owner": {
+    "name": "Stanimir Tenev",
+    "url": "https://github.com/shorlist"
+  },
+  "description": "ShorList: an open catalogue of the forms cryptography takes in code and configuration, as a Claude skill.",
+  "plugins": [
+    {
+      "name": "shorlist",
+      "source": "./",
+      "category": "security"
+    }
+  ]
+}

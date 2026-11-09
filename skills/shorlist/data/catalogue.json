@@ -1,0 +1,23 @@
+{
+  "catalogue": "ShorList",
+  "version": "0.2.0",
+  "catalogue_sha256_of_release": "5d0e18007d740318cb1247303bc1ad957de13f2a349e9e8aeab2cdc2690a6db6",
+  "sha256_note": "sha256 of the release's forms/*.yaml (generator rule), not of these JSON files",
+  "rows": 2035,
+  "doi": "10.5281/zenodo.23974515",
+  "source": "https://github.com/shorlist/shorlist/tree/v0.2.0",
+  "licence_data": "CC BY 4.0",
+  "pem_bodies_removed_from": [
+    "SL-3596",
+    "SL-3597",
+    "SL-3598",
+    "SL-3599",
+    "SL-3600",
+    "SL-3601",
+    "SL-3602",
+    "SL-3603",
+    "SL-3604",
+    "SL-3616"
+  ],
+  "shards": 13
+}

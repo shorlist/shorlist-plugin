@@ -1,0 +1,90 @@
+---
+name: shorlist
+description: Look up ShorList, an open catalogue (v0.2.0, 2035 rows) of the forms in which cryptographic algorithms appear in source code and configuration, each with a primary source, plus decoys that name an algorithm without using it. Use when asked which concrete forms of an algorithm (RSA, ECDSA, ML-KEM, SHA-1, 3DES ...) a scanner should recognise in a language or product, what a ShorList row (SL-xxxx) says and where its source is, which catalogue literals occur verbatim in a file, or how to score a cryptography scanner or CBOM tool against ShorList.
+---
+
+# ShorList
+
+The catalogue is bundled in `data/` next to this file: `catalogue.json` (version, the
+release's catalogue sha256, DOI, licence) and `rows-*.jsonl` (one row per line, JSON).
+Query it with the script, which uses only the Python standard library and makes no network
+request:
+
+```
+python3 ${CLAUDE_SKILL_DIR}/scripts/find.py --stats
+```
+
+In claude.ai chat the skill folder is copied into the code-execution sandbox; run
+`python3 scripts/find.py ...` from the skill folder there.
+
+## Queries
+
+| question | command |
+|---|---|
+| counts by axis, family, form kind | `find.py --stats` (add any filter) |
+| one row, in full, with its sources | `find.py --id SL-0001 --full` |
+| forms of a family | `find.py --family ML-KEM` (exact family name; `--stats` lists them) |
+| forms for a language or product | `find.py --product nginx` (substring) |
+| one kind of form | `find.py --kind config_value` (`api_call`, `api_string`, `config_key`, `config_value`, `registry_id`, `oid`, `curve_name`, `cli`, `file_format`) |
+| one axis | `find.py --axis quantum` (`weak`, `defect`) |
+| decoys only / positives only | `--decoys` / `--positives` |
+| misuse rows of a CWE | `find.py --cwe CWE-327` |
+| literal contains text | `find.py --text getInstance` |
+| which catalogue literals occur verbatim in a file | `find.py --in path/to/file` |
+
+Filters combine. Output is one row per line (id, axis, pos/DECOY, family, form kind,
+product, literal); `--full` prints whole rows. The default limit is 50; `--limit 0` prints all.
+
+## How to answer
+
+- Cite rows by id, with the catalogue version and the row's `source` URL and section.
+  Rows are CC BY 4.0: credit "ShorList v0.2.0, DOI 10.5281/zenodo.23974515".
+- A row is a **form**: the exact text (`literal`), the minimal file it stands in
+  (`context_filename`, `context_template`), and what a scanner should report (`expected`).
+- `negative: true` is a **decoy**: text that names an algorithm but is not a use of it
+  (a ban list, a comment, a log string, a switch set to off). For a decoy, `expected` is
+  what a scanner would wrongly report.
+- The three axes are reported apart: `quantum` (Shor-vulnerable and post-quantum forms),
+  `weak` (classically weak algorithms and parameters, with the standard that says so in
+  `weakness`), `defect` (misuse scored on the CWE in `defect.cwe`).
+- Ten PEM rows (SL-3596 to SL-3604, SL-3616) have no `context_template` in this copy: it
+  held published throwaway key material. Their `plugin_note` links the full row.
+
+## What this does not do
+
+Say these plainly when they matter; do not soften them.
+
+- **It is not a scanner.** `--in` is a verbatim string match of catalogue literals. A
+  match is not a finding (decoys match too), and no match does not mean the file has no
+  cryptography. For an inventory of a real code base, use a scanner.
+- **It is not recall.** The catalogue is not complete and does not claim to be. A
+  scanner's *M of N* on ShorList is recognition of the listed forms, not a share of all the
+  cryptography that exists.
+- **It is not finding in a real tree.** Each form is planted alone, in a minimal file.
+  Whether a scanner reaches that file in a real repository is a different measurement and
+  is not made here.
+- **Misuse only where one line shows it.** Misuse that depends on data flow across
+  functions or files is not in the catalogue.
+- Known not covered in v0.2: families with no entry in the vocabulary yet (Streamlined
+  NTRU Prime, pre-standard Kyber names, SM2/SM3/SM4, GOST, Blowfish, IDEA,
+  bcrypt/scrypt/Argon2); vendor network configuration beyond a few FortiOS and Junos lines;
+  binaries and archives.
+
+## Scoring a scanner
+
+Scoring plants every row in its own minimal tree, runs the scanner on each, and scores
+its output. That is done by the generator in the ShorList repository, not by this skill:
+it needs the scanner installed (several run in containers) and runs only on the user's
+own machine, so in practice in Claude Code.
+
+1. Ask the user before cloning or installing anything. Work in a clone of
+   https://github.com/shorlist/shorlist at tag `v0.2.0`, so the result is on the same
+   rows as this copy (catalogue sha256 in `data/catalogue.json`).
+2. Follow that repository's README, sections "Running the generator" and "Adding a
+   scanner". An adapter is the only place that knows a scanner's field names.
+3. Report the result in the catalogue's own words: "Of N positive forms in ShorList
+   v0.2.0, <scanner and version> recognises M; of K decoys it reports L as a use", per
+   axis, with the "without registry rows" figure beside the quantum one.
+
+The README's Results section has measurements of several tools on v0.2.0. qrp-mcp, one of
+them, is written by the author of ShorList; say so whenever you cite its row.

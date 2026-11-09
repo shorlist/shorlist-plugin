@@ -1,0 +1,19 @@
+{
+  "name": "shorlist",
+  "displayName": "ShorList",
+  "version": "0.2.0",
+  "description": "ShorList v0.2.0, an open catalogue of 2035 forms in which cryptographic algorithms appear in code and configuration, each with a primary source, plus decoys. One skill looks up rows and their sources, and explains how to score a scanner with the generator in the ShorList repository. Skills only: works in claude.ai chat, Cowork and Claude Code. No hooks, no MCP server, no network requests. It is not a scanner.",
+  "icon": "./icon.png",
+  "author": {
+    "name": "Stanimir Tenev",
+    "url": "https://github.com/shorlist"
+  },
+  "homepage": "https://github.com/shorlist/shorlist",
+  "repository": "https://github.com/shorlist/shorlist-plugin",
+  "documentationUrl": "https://github.com/shorlist/shorlist-plugin#readme",
+  "supportUrl": "https://github.com/shorlist/shorlist-plugin/issues",
+  "privacyPolicyUrl": "https://github.com/shorlist/shorlist-plugin#what-it-sends",
+  "termsOfServiceUrl": "https://github.com/shorlist/shorlist-plugin#licences",
+  "license": "Apache-2.0 AND CC-BY-4.0",
+  "keywords": ["cryptography", "post-quantum", "pqc", "cbom", "cryptographic-inventory", "benchmark", "dataset", "cwe"]
+}
