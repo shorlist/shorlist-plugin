@@ -6,7 +6,7 @@ description: Look up ShorList, an open catalogue (v0.3.0, 2099 rows) of the form
 # ShorList
 
 The catalogue is bundled in `data/` next to this file: `catalogue.json` (version, the
-release's catalogue sha256, DOI, licence) and `rows-01.json` … `rows-13.json`, each a JSON
+release's catalogue sha256, DOI, licence) and `rows-01.json` … `rows-14.json`, each a JSON
 array with one row per line. The plugin ships no script: read the files with your own tools.
 In Claude Code, search them with Grep (a row is one line, so a match is a whole row) or load
 them in a short program; in claude.ai chat, load them with code execution from the skill
