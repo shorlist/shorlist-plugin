@@ -1,6 +1,6 @@
 ---
 name: shorlist
-description: Look up ShorList, an open catalogue (v0.2.0, 2035 rows) of the forms in which cryptographic algorithms appear in source code and configuration, each with a primary source, plus decoys that name an algorithm without using it. Use when asked which concrete forms of an algorithm (RSA, ECDSA, ML-KEM, SHA-1, 3DES ...) a scanner should recognise in a language or product, what a ShorList row (SL-xxxx) says and where its source is, which catalogue literals occur verbatim in a file, or how to score a cryptography scanner or CBOM tool against ShorList.
+description: Look up ShorList, an open catalogue (v0.3.0, 2099 rows) of the forms in which cryptographic algorithms appear in source code and configuration, each with a primary source, plus decoys that name an algorithm without using it. Use when asked which concrete forms of an algorithm (RSA, ECDSA, ML-KEM, SHA-1, 3DES ...) a scanner should recognise in a language or product, what a ShorList row (SL-xxxx) says and where its source is, which catalogue literals occur verbatim in a file, or how to score a cryptography scanner or CBOM tool against ShorList.
 ---
 
 # ShorList
@@ -35,7 +35,7 @@ literals occur verbatim in a given file (a plain string match, see the limits be
 ## How to answer
 
 - Cite rows by id, with the catalogue version and the row's `source` URL and section.
-  Rows are CC BY 4.0: credit "ShorList v0.2.0, DOI 10.5281/zenodo.23974515".
+  Rows are CC BY 4.0: credit "ShorList v0.3.0, DOI 10.5281/zenodo.23974515".
 - A row is a **form**: the exact text (`literal`), the minimal file it stands in
   (`context_filename`, `context_template`), and what a scanner should report (`expected`).
 - `negative: true` is a **decoy**: text that names an algorithm but is not a use of it
@@ -44,8 +44,8 @@ literals occur verbatim in a given file (a plain string match, see the limits be
 - The three axes are reported apart: `quantum` (Shor-vulnerable and post-quantum forms),
   `weak` (classically weak algorithms and parameters, with the standard that says so in
   `weakness`), `defect` (misuse scored on the CWE in `defect.cwe`).
-- Ten PEM rows (SL-3596 to SL-3604, SL-3616) have no `context_template` in this copy: it
-  held published throwaway key material. Their `plugin_note` links the full row.
+- Twenty PEM rows (SL-3596 to SL-3604, SL-3616, SL-3637 to SL-3646) have no
+  `context_template` in this copy: it held published throwaway key or certificate material. Their `plugin_note` links the full row.
 - The 24 hard-coded-key rows (CWE-321) have no `context_template` in this copy, and long
   key bytes in their literal read `<KEY-BYTES-REMOVED>`, so that a secret scanner does not take
   the made-up keys for real ones. Their `plugin_note` links the full row; quote that row when
@@ -66,9 +66,10 @@ Say these plainly when they matter; do not soften them.
   is not made here.
 - **Misuse only where one line shows it.** Misuse that depends on data flow across
   functions or files is not in the catalogue.
-- Known not covered in v0.2: families with no entry in the vocabulary yet (Streamlined
+- Known not covered in v0.3: families with no entry in the vocabulary yet (Streamlined
   NTRU Prime, pre-standard Kyber names, SM2/SM3/SM4, GOST, Blowfish, IDEA,
-  bcrypt/scrypt/Argon2); vendor network configuration beyond a few FortiOS and Junos lines;
+  bcrypt/scrypt/Argon2); vendor network configuration beyond a few FortiOS, Junos, Cisco IOS XE, MikroTik and F5
+  lines;
   binaries and archives.
 
 ## Scoring a scanner
@@ -79,13 +80,14 @@ it needs the scanner installed (several run in containers) and runs only on the 
 own machine, so in practice in Claude Code.
 
 1. Ask the user before cloning or installing anything. Work in a clone of
-   https://github.com/shorlist/shorlist at tag `v0.2.0`, so the result is on the same
+   https://github.com/shorlist/shorlist at tag `v0.3.0`, so the result is on the same
    rows as this copy (catalogue sha256 in `data/catalogue.json`).
 2. Follow that repository's README, sections "Running the generator" and "Adding a
    scanner". An adapter is the only place that knows a scanner's field names.
 3. Report the result in the catalogue's own words: "Of N positive forms in ShorList
-   v0.2.0, <scanner and version> recognises M; of K decoys it reports L as a use", per
+   v0.3.0, <scanner and version> recognises M; of K decoys it reports L as a use", per
    axis, with the "without registry rows" figure beside the quantum one.
 
-The README's Results section has measurements of several tools on v0.2.0. qrp-mcp, one of
+The README's Results section has measurements of several tools; each result names the catalogue version it was
+made on. qrp-mcp, one of
 them, is written by the author of ShorList; say so whenever you cite its row.

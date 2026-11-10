@@ -1,11 +1,11 @@
 {
   "catalogue": "ShorList",
-  "version": "0.2.0",
-  "catalogue_sha256_of_release": "5d0e18007d740318cb1247303bc1ad957de13f2a349e9e8aeab2cdc2690a6db6",
+  "version": "0.3.0",
+  "catalogue_sha256_of_release": "084dce514b73060b01cf9aa5be50ed72c7f0cfda55eb0f3988c8da732d6a0785",
   "sha256_note": "sha256 of the release's forms/*.yaml (generator rule), not of these JSON files",
-  "rows": 2035,
+  "rows": 2099,
   "doi": "10.5281/zenodo.23974515",
-  "source": "https://github.com/shorlist/shorlist/tree/v0.2.0",
+  "source": "https://github.com/shorlist/shorlist/tree/v0.3.0",
   "licence_data": "CC BY 4.0",
   "pem_bodies_removed_from": [
     "SL-3596",
@@ -17,7 +17,17 @@
     "SL-3602",
     "SL-3603",
     "SL-3604",
-    "SL-3616"
+    "SL-3616",
+    "SL-3637",
+    "SL-3638",
+    "SL-3639",
+    "SL-3640",
+    "SL-3641",
+    "SL-3642",
+    "SL-3643",
+    "SL-3644",
+    "SL-3645",
+    "SL-3646"
   ],
   "key_bytes_removed_from": [
     "SL-5005",
@@ -45,5 +55,5 @@
     "SL-6018",
     "SL-6021"
   ],
-  "shards": 13
+  "shards": 14
 }

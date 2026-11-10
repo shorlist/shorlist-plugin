@@ -1,8 +1,8 @@
 {
   "name": "shorlist",
   "displayName": "ShorList",
-  "version": "0.2.0",
-  "description": "ShorList v0.2.0, an open catalogue of 2035 forms in which cryptographic algorithms appear in code and configuration, each with a primary source, plus decoys. One skill looks up rows and their sources, and explains how to score a scanner with the generator in the ShorList repository. Skills only: works in claude.ai chat, Cowork and Claude Code. No hooks, no MCP server, no network requests. It is not a scanner.",
+  "version": "0.3.0",
+  "description": "ShorList v0.3.0, an open catalogue of 2099 forms in which cryptographic algorithms appear in code and configuration, each with a primary source, plus decoys. One skill looks up rows and their sources, and explains how to score a scanner with the generator in the ShorList repository. Skills only: works in claude.ai chat, Cowork and Claude Code. No hooks, no MCP server, no network requests. It is not a scanner.",
   "icon": "./icon.png",
   "author": {
     "name": "Stanimir Tenev",

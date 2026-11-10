@@ -4,7 +4,7 @@
 *forms* in which cryptographic algorithms appear in source code and configuration: the
 exact text, the minimal file it stands in, what a scanner should report for it, and the
 primary source that defines it. Decoys (text that names an algorithm but is not a use of
-it) measure false alarms. This plugin bundles **ShorList v0.2.0** (2035 rows, DOI
+it) measure false alarms. This plugin bundles **ShorList v0.3.0** (2099 rows, DOI
 [10.5281/zenodo.23974515](https://doi.org/10.5281/zenodo.23974515)) as one Claude skill.
 
 ## Where it works
@@ -43,12 +43,12 @@ machine, and Claude asks before cloning or installing anything.
 
 | axis | rows | positive | decoys |
 |---|---|---|---|
-| quantum (Shor-vulnerable and post-quantum) | 1537 | 1368 | 169 |
+| quantum (Shor-vulnerable and post-quantum) | 1601 | 1429 | 172 |
 | weak (classically weak algorithms and parameters) | 311 | 280 | 31 |
 | defect (misuse that one line shows, scored on the CWE) | 187 | 162 | 25 |
 
 The families, languages and products covered are listed in the catalogue's README,
-section "Scope of v0.2".
+section "Scope of v0.3".
 
 ## What it does not do
 
@@ -63,10 +63,10 @@ section "Scope of v0.2".
   here.
 - **Misuse only where one line shows it.** Misuse that depends on data flow across
   functions or files is not in the catalogue.
-- Known not covered in v0.2: families with no entry in the vocabulary yet (Streamlined
+- Known not covered in v0.3: families with no entry in the vocabulary yet (Streamlined
   NTRU Prime, pre-standard Kyber names, SM2/SM3/SM4, GOST, Blowfish, IDEA,
-  bcrypt/scrypt/Argon2); vendor network configuration beyond a few FortiOS and Junos
-  lines; binaries and archives.
+  bcrypt/scrypt/Argon2); vendor network configuration beyond a few FortiOS, Junos,
+  Cisco IOS XE, MikroTik and F5 lines; binaries and archives.
 
 ## What it sends
 
@@ -78,14 +78,14 @@ before it runs.
 
 ## How the data was made
 
-The data under the skill's data folder is built from the v0.2.0 tag of the catalogue
+The data under the skill's data folder is built from the v0.3.0 tag of the catalogue
 repository by a build script kept outside the plugin, since the plugin ships no code. It differs from the release in four ways, and in nothing else:
 
 1. Rows are stored as JSON arrays, one row per line and about 150 rows per file, instead
    of one YAML file per row, to stay within the plugin directory's file limits.
 2. Each row carries `axis`, computed as the generator computes it.
-3. Ten PEM rows (SL-3596 to SL-3604 and SL-3616) carry real, throwaway test keys in the
-   release, published on purpose. In this copy their minimal file is removed and a note
+3. Twenty PEM rows (SL-3596 to SL-3604, SL-3616 and SL-3637 to SL-3646) carry real,
+   throwaway test keys or certificates in the release, published on purpose. In this copy their minimal file is removed and a note
    links the full row; the literal (the PEM label) and the expected result are unchanged.
 4. The 24 hard-coded-key rows (CWE-321) carry made-up keys in the release. In this copy their
    minimal file is removed and long key bytes in the literal are replaced by
@@ -93,7 +93,7 @@ repository by a build script kept outside the plugin, since the plugin ships no 
    links the full row. The expected result is unchanged.
 
 The catalogue sha256 recorded with the data is the release's own (over its YAML files, as
-the generator computes it), so a result made with the generator on v0.2.0 is on the same
+the generator computes it), so a result made with the generator on v0.3.0 is on the same
 rows.
 
 ## Conflict of interest
@@ -106,7 +106,7 @@ Elkan Electronic has checked those numbers yet.
 
 ## Licences
 
-The catalogue data is under [CC BY 4.0](LICENSE-DATA.md): credit "ShorList v0.2.0, DOI
+The catalogue data is under [CC BY 4.0](LICENSE-DATA.md): credit "ShorList v0.3.0, DOI
 10.5281/zenodo.23974515". The script and the build tool are under
 [Apache-2.0](LICENSE).
 
